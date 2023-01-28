@@ -38,7 +38,7 @@ function Home({ navigation }) {
                         <Text className="font-medium text-base text-gray-600" onPress={() => Linking.openURL("https://github.com/ridemountainpig")}>
                             <Ionicons name="battery-charging" size={16} color={'#22c55e'}></Ionicons> Power By ridemountainpig
                         </Text>
-                        <Text className="font-medium text-base text-gray-600" onPress={() => Linking.openURL("https://github.com/ridemountainpig/fcu-course-search")}>
+                        <Text className="font-medium text-base text-gray-600" onPress={() => Linking.openURL("https://github.com/ridemountainpig/fcu-course-search-app")}>
                             <Ionicons name="logo-github" size={16}></Ionicons> Github
                         </Text>
                     </View>
