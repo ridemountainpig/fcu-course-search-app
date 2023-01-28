@@ -17,7 +17,7 @@ function GeneralStudies() {
   }, []);
 
   return (
-    <View className="bg-slate-100">
+    <View className="h-screen bg-slate-100">
       <View className="mx-auto mt-6 mb-2">
         <Text className="font-bold text-3xl text-gray-600">General Studies</Text>
         <Text className="font-semibold text-lg text-gray-400 mt-1 mx-auto">通識課程</Text>
@@ -25,7 +25,8 @@ function GeneralStudies() {
       <FlatList
         data={data}
         keyExtractor={item => item.courseNumber}
-        className="mb-32 rounded-xl"
+        className="mb-20 rounded-2xl mx-auto"
+        style={{ backgroundColor: '#dfe7d5', width: '96%' }}
         renderItem={({ item }) => (
           <View className="mx-auto items-center p-2 my-2 bg-white rounded-xl w-11/12">
             <Text className="flex justify-center items-center p-5 m-3 text-gray-600 font-extrabold text-lg bg-slate-100 rounded-lg">
