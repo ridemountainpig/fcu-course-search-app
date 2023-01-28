@@ -13,10 +13,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 function Home({ navigation }) {
 
-    const pressHandler = () => {
-        navigation.navigate('GeneralStudies');
-    }
-
     return (
         <View className="h-screen bg-slate-100">
             <ScrollView>
@@ -28,13 +24,13 @@ function Home({ navigation }) {
                         </View>
                     </View>
                     <View className="flex justify-center">
-                        <TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1}>
                             <HomeCard iconName="planet-outline" title="Course Number" subtitle="課程代號"></HomeCard>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={pressHandler} activeOpacity={1}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('GeneralStudies'); }} activeOpacity={1}>
                             <HomeCard iconName="cube-outline" title="General Studies" subtitle="通識課程"></HomeCard>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => { navigation.navigate('FollowCourse'); }} activeOpacity={1}>
                             <HomeCard iconName="heart-outline" title="Follow Courses" subtitle="關注課程"></HomeCard>
                         </TouchableOpacity>
                     </View>
@@ -43,7 +39,7 @@ function Home({ navigation }) {
                             <Ionicons name="battery-charging" size={16} color={'#22c55e'}></Ionicons> Power By ridemountainpig
                         </Text>
                         <Text className="font-medium text-base text-gray-600" onPress={() => Linking.openURL("https://github.com/ridemountainpig/fcu-course-search")}>
-                            <Ionicons name="logo-github" size={16}></Ionicons> github
+                            <Ionicons name="logo-github" size={16}></Ionicons> Github
                         </Text>
                     </View>
                 </View>
