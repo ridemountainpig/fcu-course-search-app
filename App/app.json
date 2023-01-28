@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/FF.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "FCU.Course"
     },
     "web": {
       "favicon": "./assets/FF.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "826bfa6b-c3a8-456a-bce5-679c29261267"
+      }
     }
   }
 }
