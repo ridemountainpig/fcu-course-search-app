@@ -1,14 +1,10 @@
 version: 2
 updates:
-  - package-ecosystem: "yarn"
-    schedule:
+  - schedule:
       interval: "daily"
-    directory: "/"
-    schedule-preset: "daily"
     labels:
       - "dependabot"
-      - "react-native"
-      - "expo"
-    ignore:
-      - dependency-name: "expo"
+      - "yarn"
     open-pull-request-if-necessary: true
+    directory: "/"
+    package-manager: "yarn"
