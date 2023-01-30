@@ -22,7 +22,7 @@ npm install -g expo-cli
 # install dependencies
 yarn install
 
-# run in expo
-npm start
+# run project
+expo start
 ```
 
