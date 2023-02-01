@@ -20,7 +20,7 @@ function FollowCourse() {
                     setInputValue('');
                     textInputRef.current.blur();
                     await AsyncStorage.setItem(inputValue, inputValue);
-                    getAllData();
+                    generateCourseList();
                 } else {
                     courseErrorAlert();
                     setInputValue('');
