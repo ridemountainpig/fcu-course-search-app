@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { View, Text, TextInput, TouchableOpacity, FlatList, Keyboard, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -57,6 +57,10 @@ function FollowCourse() {
 
     const [data, setData] = useState([]);
 
+    useEffect(() => {
+        generateCourseList();
+    }, []);
+
     const generateCourseList = async () => {
         let items = await getAllData();
         let courseList = [];
@@ -71,8 +75,6 @@ function FollowCourse() {
         }
         setData(Object.values(courseList));
     }
-
-    generateCourseList();
 
     const courseErrorAlert = () => {
         Alert.alert(
