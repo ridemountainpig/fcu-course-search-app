@@ -2,7 +2,7 @@ name: Build and release expo app
 on:
   push:
     branches:
-      - 'main'
+      - 'workflow-dev'
 
 jobs:
   update:
