@@ -42,7 +42,8 @@ jobs:
         run: eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl
 
       - name: Store apk download URL in env variable
-        run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
+#         run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
+        run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android --non-interactive | jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
 
 #       - name: Send mail
 #         if: always()
