@@ -8,7 +8,7 @@ jobs:
   update:
     name: EAS Update
     runs-on: ubuntu-latest
-#     if: "contains(github.event.head_commit.message, 'expo-deploy')"
+#     if: "contains(github.event.head_commit.message, 'actions-expo-deploy')"
     steps:
 #       - name: Check for EXPO_TOKEN
 #         run: |
@@ -81,7 +81,8 @@ jobs:
       
       - name: Get commit message
         id: commit_message
-        run: echo "::set-output name=commit_message::${{ github.event.head_commit.message }}"
+#         run: echo "::set-output name=commit_message::${{ github.event.head_commit.message }}"
+        run: echo "{commit_message}={${{ github.event.head_commit.message }}}" >> $GITHUB_OUTPUT"
       
       - name: Get latest release tag
         id: latest_release
@@ -116,12 +117,12 @@ jobs:
             console.log(new_tag_name);
             
             // Set the new tag name as an output of this step
-            console.log("::set-output name=new_tag_name::" + new_tag_name);
+            // console.log("::set-output name=new_tag_name::" + new_tag_name);
+            console.log("echo "{new_tag_name}={new_tag_name}" >> $GITHUB_OUTPUT");
 
 #       # Use the new tag name output in the next steps
 #       - name: Use the new tag name
 #         run: echo "The new tag name is ${{ steps.latest_release.outputs.new_tag_name }}"
-
 
       - name: Set README content
         run: |
@@ -156,7 +157,7 @@ jobs:
           git config --global user.email "lin0905580802@gmail.com"
           git config --global user.name "ridemountainpig"
           git add README.md
-          git commit -m "Update README"
+          git commit -m "doc: update readme"
           
       - name: Push changes
         uses: ad-m/github-push-action@master
