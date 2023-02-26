@@ -91,7 +91,7 @@ jobs:
             let tag_name = await github.repos.getLatestRelease({
               owner: context.repo.owner,
               repo: context.repo.repo
-            }).then(response => response.data.tag_name.replace('v', '').split('.');
+            }).then(response => response.data.tag_name.replace('v', '').split('.'));
             console.log(tag_name);
             let new_tag_name = (parseInt(tag_name, 10) + 1).toString();
             console.log(new_tag_name);
