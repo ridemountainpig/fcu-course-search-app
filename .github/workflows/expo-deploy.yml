@@ -81,7 +81,6 @@ jobs:
       
       - name: Get commit message
         id: commit_message
-#         run: echo "::set-output name=commit_message::${{ github.event.head_commit.message }}"
         run: echo "{commit_message}={${{ github.event.head_commit.message }}}" >> $GITHUB_OUTPUT
       
       - name: Get latest release tag
