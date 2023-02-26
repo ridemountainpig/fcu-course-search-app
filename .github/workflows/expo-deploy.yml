@@ -100,7 +100,7 @@ jobs:
             console.log(`Patch version: ${patch}`);
             
             let commit_message = "${{ steps.commit_message.outputs.commit_message }}";
-            console.log(commit_message);
+            console.log("commit message = " + commit_message);
             
             if (commit_message.includes("major")) {
               console.log("commit message include major");
