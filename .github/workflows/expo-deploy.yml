@@ -79,8 +79,9 @@ jobs:
 #           path: public/
 #           filename: fcu-course-search-app.zip
       
-      - name: Print commit message
-        run: echo "The commit message is ${{ github.event.head_commit.message }}"
+      - name: Get commit message
+        id: commit_message
+        run: echo "::set-output name=commit_message::${{ github.event.head_commit.message }}"
       
       - name: Get latest release tag
         id: latest_release
@@ -95,6 +96,8 @@ jobs:
             console.log(new_tag_name);
             // Set the new tag name as an output of this step
             console.log(`::set-output name=new_tag_name::${new_tag_name}`);
+            console.log(`Commit message: ${github.event.head_commit.message}`)
+            console.log(`Commit message: ${{ steps.commit_message.outputs.commit_message }}`)
         
 #       # Use the new tag name output in the next steps
 #       - name: Use the new tag name
