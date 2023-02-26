@@ -98,14 +98,26 @@ jobs:
             console.log(`Major version: ${major}`);
             console.log(`Minor version: ${minor}`);
             console.log(`Patch version: ${patch}`);
-            let new_tag_name = (parseInt(tag_name, 10) + 1).toString();
+            
+            let commit_message = "${{ steps.commit_message.outputs.commit_message }}";
+            console.log(commit_message);
+            
+            if (commit_message.includes("major")) {
+              major = (parseInt(major, 10) + 1).toString();
+              minor = 0;
+              patch = 0;
+            } else if (commit_message.includes("major")) {
+              minor = (parseInt(minor, 10) + 1).toString();
+            } else if (commit_message.includes("major")) {
+              patch = (parseInt(major, 10) + 1).toString();
+            }
+            
+            let new_tag_name = major + "." + minor + "." + patch;
             console.log(new_tag_name);
+            
             // Set the new tag name as an output of this step
             console.log("::set-output name=new_tag_name::" + new_tag_name);
 
-            let commit_message = "${{ steps.commit_message.outputs.commit_message }}";
-            console.log(commit_message);
-        
 #       # Use the new tag name output in the next steps
 #       - name: Use the new tag name
 #         run: echo "The new tag name is ${{ steps.latest_release.outputs.new_tag_name }}"
