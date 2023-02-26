@@ -119,18 +119,12 @@ jobs:
             let echo_message = `{new_tag_name}={${new_tag_name}}`;
             
             // Set the new tag name as an output of this step
-            // console.log("::set-output name=new_tag_name::" + new_tag_name);
             console.log(`new_tag_name = ${new_tag_name}`);
-            // console.log("Run echo " + echo_message + " >> $GITHUB_OUTPUT");
             
             const fs = require('fs');
             const name = 'NEW_TAG_NAME';
             const message = `${name}=${new_tag_name}`;
             fs.appendFileSync(process.env.GITHUB_OUTPUT, message + '\n');
-
-#       # Use the new tag name output in the next steps
-#       - name: Use the new tag name
-#         run: echo "The new tag name is ${{ steps.latest_release.outputs.new_tag_name }}"
 
       - name: Set README content
         run: |
