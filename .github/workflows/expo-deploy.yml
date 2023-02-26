@@ -116,10 +116,12 @@ jobs:
             let new_tag_name = major + "." + minor + "." + patch;
             console.log(new_tag_name);
             
+            let echo_message = `{new_tag_name}={${new_tag_name}}`;
+            
             // Set the new tag name as an output of this step
             // console.log("::set-output name=new_tag_name::" + new_tag_name);
             console.log(`new_tag_name = ${new_tag_name}`);
-            console.log(`echo `{new_tag_name}={${new_tag_name}}` >> $GITHUB_OUTPUT`);
+            console.log("echo " + echo_message + " >> $GITHUB_OUTPUT");
 
 #       # Use the new tag name output in the next steps
 #       - name: Use the new tag name
