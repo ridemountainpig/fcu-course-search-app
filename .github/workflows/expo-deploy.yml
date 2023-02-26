@@ -158,7 +158,7 @@ jobs:
           git config --global user.email "lin0905580802@gmail.com"
           git config --global user.name "ridemountainpig"
           git add README.md
-          git commit -m "doc: update readme"
+          git commit -m "docs: update readme"
           
       - name: Push changes
         uses: ad-m/github-push-action@master
