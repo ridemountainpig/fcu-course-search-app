@@ -81,7 +81,7 @@ jobs:
       
       - name: Get commit message
         id: commit_message
-        run: echo "{commit_message}={${{ github.event.head_commit.message }}}" >> $GITHUB_OUTPUT
+        run: echo "commit_message=${{ github.event.head_commit.message }}" >> $GITHUB_OUTPUT
       
       - name: Get latest release tag
         id: latest_release
@@ -100,15 +100,19 @@ jobs:
             console.log(`Patch version: ${patch}`);
             
             let commit_message = "${{ steps.commit_message.outputs.commit_message }}";
-            console.log(commit_message);
+            console.log("commit message = " + commit_message);
             
             if (commit_message.includes("major")) {
+              console.log("commit message include major");
               major = (parseInt(major, 10) + 1).toString();
               minor = 0;
               patch = 0;
             } else if (commit_message.includes("minor")) {
+              console.log("commit message include minor");
               minor = (parseInt(minor, 10) + 1).toString();
+              patch = 0;
             } else if (commit_message.includes("patch")) {
+              console.log("commit message include patch");
               patch = (parseInt(patch, 10) + 1).toString();
             }
             
