@@ -123,46 +123,46 @@ jobs:
 #         run: echo "The new tag name is ${{ steps.latest_release.outputs.new_tag_name }}"
 
 
-#       - name: Set README content
-#         run: |
-#           cat << EOF > README.md
-#           <p align="center">
-#             <img src="https://user-images.githubusercontent.com/92412722/215243095-db310068-f55a-405e-a808-e036bf570812.png" style="width:350px;"/>
-#             <img src="https://user-images.githubusercontent.com/92412722/215246631-023e1c19-449a-4ff7-9e65-3fdd4acb85c5.png" style="width:350px;"/>
-#           </p>
+      - name: Set README content
+        run: |
+          cat << EOF > README.md
+          <p align="center">
+            <img src="https://user-images.githubusercontent.com/92412722/215243095-db310068-f55a-405e-a808-e036bf570812.png" style="width:350px;"/>
+            <img src="https://user-images.githubusercontent.com/92412722/215246631-023e1c19-449a-4ff7-9e65-3fdd4acb85c5.png" style="width:350px;"/>
+          </p>
           
-#           # FCU Course Search APP
-#           A APP for [FCU Course Search](https://github.com/ridemountainpig/fcu-course-search).
+          # FCU Course Search APP
+          A APP for [FCU Course Search](https://github.com/ridemountainpig/fcu-course-search).
           
-#           ## Download
-#           [Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v${{ steps.latest_release.outputs.new_tag_name }}/fcu-course-search-app.zip)
+          ## Download
+          [Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v${{ steps.latest_release.outputs.new_tag_name }}/fcu-course-search-app.zip)
           
-#           ## Technologies
-#           - EXPO
-#           - React Native
-#           - NativeWind
-#           ## Setup Project
-#           \`\`\`bash
-#           # install expo cli
-#           npm install -g expo-cli
-#           # install dependencies
-#           yarn install
-#           # run project
-#           expo start
-#           \`\`\`
-#           EOF
-#       - name: Commit changes
-#         run: |
-#           git config --global user.email "lin0905580802@gmail.com"
-#           git config --global user.name "ridemountainpig"
-#           git add README.md
-#           git commit -m "Update README"
+          ## Technologies
+          - EXPO
+          - React Native
+          - NativeWind
+          ## Setup Project
+          \`\`\`bash
+          # install expo cli
+          npm install -g expo-cli
+          # install dependencies
+          yarn install
+          # run project
+          expo start
+          \`\`\`
+          EOF
+      - name: Commit changes
+        run: |
+          git config --global user.email "lin0905580802@gmail.com"
+          git config --global user.name "ridemountainpig"
+          git add README.md
+          git commit -m "Update README"
           
-#       - name: Push changes
-#         uses: ad-m/github-push-action@master
-#         with:
-#           github_token: ${{ secrets.GITHUB_TOKEN }}
-#           branch: release-version-action
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: release-version-action
       
 #       - name: Create Release
 #         id: create-new-release
