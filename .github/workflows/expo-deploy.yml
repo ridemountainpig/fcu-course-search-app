@@ -2,7 +2,7 @@ name: Build and release expo app
 on:
   push:
     branches:
-      - 'release-version-action'
+      - 'main'
 
 jobs:
   update:
@@ -10,41 +10,41 @@ jobs:
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, 'actions-expo-deploy')"
     steps:
-#       - name: Check for EXPO_TOKEN
-#         run: |
-#           if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
-#             echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
-#             exit 1
-#           fi
+      - name: Check for EXPO_TOKEN
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
+            exit 1
+          fi
 
       - name: Checkout repository
         uses: actions/checkout@v3
 
-#       - name: Setup Node
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: 16.x
-#           cache: yarn
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: yarn
 
-#       - name: Setup Expo
-#         uses: expo/expo-github-action@v7
-#         with:
-#           expo-version: latest
-#           eas-version: latest
-#           token: ${{ secrets.EXPO_TOKEN }}
+      - name: Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
 
-#       - name: 📦 Install dependencies
-#         run: yarn install
+      - name: 📦 Install dependencies
+        run: yarn install
 
-#       - name: Build APK
-#         run: eas build --profile preview --platform android --non-interactive --clear-cache
+      - name: Build APK
+        run: eas build --profile preview --platform android --non-interactive --clear-cache
 
-#       - name: GET APK URL from EXPO
-#         run: eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl
+      - name: GET APK URL from EXPO
+        run: eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl
 
-#       - name: Store apk download URL in env variable
-# #         run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
-#         run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android --non-interactive | jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
+      - name: Store apk download URL in env variable
+#         run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
+        run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android --non-interactive | jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
 
 #       - name: Send mail
 #         if: always()
@@ -64,20 +64,20 @@ jobs:
 #           attachments: attachments.zip,git.diff,./dist/static/*.js
 #           priority: low
 
-#       - name: Download apk file
-#         uses: suisei-cn/actions-download-file@v1
-#         id: downloadfile # Remember to give an ID if you need the output
-#         with:
-#           url: 'Downloading APK from [this](${{ env.apk_url }})!'
-#           target: public/
-#           auto-match: true
-#       - name: LIST DIR
-#         run: ls -R
+      - name: Download apk file
+        uses: suisei-cn/actions-download-file@v1
+        id: downloadfile # Remember to give an ID if you need the output
+        with:
+          url: 'Downloading APK from [this](${{ env.apk_url }})!'
+          target: public/
+          auto-match: true
+      - name: LIST DIR
+        run: ls -R
 
-#       - uses: thedoctor0/zip-release@master
-#         with:
-#           path: public/
-#           filename: fcu-course-search-app.zip
+      - uses: thedoctor0/zip-release@master
+        with:
+          path: public/
+          filename: fcu-course-search-app.zip
       
       - name: Get commit message
         id: commit_message
@@ -164,26 +164,26 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: release-version-action
+          branch: main
       
-#       - name: Create Release
-#         id: create-new-release
-#         uses: actions/create-release@v1
-#         env:
-#           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-#         with:
-#           tag_name: v${{ steps.latest_release.outputs.new_tag_name }}
-#           release_name: Release v${{ steps.latest_release.outputs.new_tag_name }}
+      - name: Create Release
+        id: create-new-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          tag_name: v${{ steps.latest_release.outputs.new_tag_name }}
+          release_name: Release v${{ steps.latest_release.outputs.new_tag_name }}
 
-#       - name: Upload asset to Github release
-#         uses: actions/upload-release-asset@v1
-#         env:
-#           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-#         with:
-#           upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-#           asset_path: ./fcu-course-search-app.zip
-#           asset_name: fcu-course-search-app.zip
-#           asset_content_type: application/zip
+      - name: Upload asset to Github release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+          asset_path: ./fcu-course-search-app.zip
+          asset_name: fcu-course-search-app.zip
+          asset_content_type: application/zip
 
 #   delete-release:
 #     runs-on: ubuntu-latest
