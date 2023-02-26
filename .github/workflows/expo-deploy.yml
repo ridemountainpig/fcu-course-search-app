@@ -8,7 +8,7 @@ jobs:
   update:
     name: EAS Update
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'expo-deploy')"
+    if: "contains(github.event.head_commit.message, 'actions-expo-deploy')"
     steps:
       - name: Check for EXPO_TOKEN
         run: |
@@ -79,6 +79,10 @@ jobs:
           path: public/
           filename: fcu-course-search-app.zip
       
+      - name: Get commit message
+        id: commit_message
+        run: echo "{commit_message}={${{ github.event.head_commit.message }}}" >> $GITHUB_OUTPUT
+      
       - name: Get latest release tag
         id: latest_release
         uses: actions/github-script@v4.1.0
@@ -88,15 +92,38 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             }).then(response => response.data.tag_name.replace('v', ''));
-            let new_tag_name = (parseInt(tag_name, 10) + 1).toString();
+            console.log(`Tag name: ${tag_name}`);
+            // release version Major.Minor.Patch
+            let [major, minor, patch] = tag_name.split('.');
+            console.log(`Major version: ${major}`);
+            console.log(`Minor version: ${minor}`);
+            console.log(`Patch version: ${patch}`);
+            
+            let commit_message = "${{ steps.commit_message.outputs.commit_message }}";
+            console.log(commit_message);
+            
+            if (commit_message.includes("major")) {
+              major = (parseInt(major, 10) + 1).toString();
+              minor = 0;
+              patch = 0;
+            } else if (commit_message.includes("minor")) {
+              minor = (parseInt(minor, 10) + 1).toString();
+            } else if (commit_message.includes("patch")) {
+              patch = (parseInt(patch, 10) + 1).toString();
+            }
+            
+            let new_tag_name = major + "." + minor + "." + patch;
             console.log(new_tag_name);
+            
+            let echo_message = `{new_tag_name}={${new_tag_name}}`;
+            
             // Set the new tag name as an output of this step
-            console.log(`::set-output name=new_tag_name::${new_tag_name}`);
-        
-#       # Use the new tag name output in the next steps
-#       - name: Use the new tag name
-#         run: echo "The new tag name is ${{ steps.latest_release.outputs.new_tag_name }}"
-
+            console.log(`new_tag_name = ${new_tag_name}`);
+            
+            const fs = require('fs');
+            const name = 'NEW_TAG_NAME';
+            const message = `${name}=${new_tag_name}`;
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, message + '\n');
 
       - name: Set README content
         run: |
@@ -131,7 +158,7 @@ jobs:
           git config --global user.email "lin0905580802@gmail.com"
           git config --global user.name "ridemountainpig"
           git add README.md
-          git commit -m "Update README"
+          git commit -m "docs: update readme"
           
       - name: Push changes
         uses: ad-m/github-push-action@master
