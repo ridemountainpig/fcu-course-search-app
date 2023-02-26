@@ -110,6 +110,7 @@ jobs:
             } else if (commit_message.includes("minor")) {
               console.log("commit message include minor");
               minor = (parseInt(minor, 10) + 1).toString();
+              patch = 0;
             } else if (commit_message.includes("patch")) {
               console.log("commit message include patch");
               patch = (parseInt(patch, 10) + 1).toString();
