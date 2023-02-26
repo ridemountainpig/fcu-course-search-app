@@ -98,13 +98,12 @@ jobs:
             console.log(`Major version: ${major}`);
             console.log(`Minor version: ${minor}`);
             console.log(`Patch version: ${patch}`);
-            console.log(parseInt(minor, 10) + 1);
-            console.log((parseInt(patch, 10) + 1).toString());
             
             let commit_message = "${{ steps.commit_message.outputs.commit_message }}";
             console.log(commit_message);
             
             if (commit_message.includes("major")) {
+              console.log("commit message include major");
               major = (parseInt(major, 10) + 1).toString();
               minor = 0;
               patch = 0;
