@@ -96,7 +96,6 @@ jobs:
             console.log(new_tag_name);
             // Set the new tag name as an output of this step
             console.log(`::set-output name=new_tag_name::${new_tag_name}`);
-            console.log(`Commit message: ${github.event.head_commit.message}`)
             console.log(`Commit message: ${{ steps.commit_message.outputs.commit_message }}`)
         
 #       # Use the new tag name output in the next steps
