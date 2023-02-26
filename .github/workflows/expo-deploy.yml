@@ -79,6 +79,9 @@ jobs:
 #           path: public/
 #           filename: fcu-course-search-app.zip
       
+      - name: Print commit message
+        run: echo "The commit message is ${{ github.event.head_commit.message }}"
+      
       - name: Get latest release tag
         id: latest_release
         uses: actions/github-script@v4.1.0
@@ -90,7 +93,6 @@ jobs:
             }).then(response => response.data.tag_name.replace('v', ''));
             let new_tag_name = (parseInt(tag_name, 10) + 1).toString();
             console.log(new_tag_name);
-            console.log(github.context.payload.head_commit.message)
             // Set the new tag name as an output of this step
             console.log(`::set-output name=new_tag_name::${new_tag_name}`);
         
