@@ -109,7 +109,7 @@ jobs:
             } else if (commit_message.includes("minor")) {
               minor = (parseInt(minor, 10) + 1).toString();
             } else if (commit_message.includes("patch")) {
-              patch = (parseInt(major, 10) + 1).toString();
+              patch = (parseInt(patch, 10) + 1).toString();
             }
             
             let new_tag_name = major + "." + minor + "." + patch;
