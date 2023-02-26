@@ -7,7 +7,7 @@
 A APP for [FCU Course Search](https://github.com/ridemountainpig/fcu-course-search).
 
 ## Download
-[Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v1.0.0/fcu-course-search-app.zip)
+[Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v1.0.2/fcu-course-search-app.zip)
 
 ## Technologies
 - EXPO
