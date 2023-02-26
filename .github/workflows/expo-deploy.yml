@@ -144,7 +144,7 @@ jobs:
           A APP for [FCU Course Search](https://github.com/ridemountainpig/fcu-course-search).
           
           ## Download
-          [Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v${{ env.NEW_TAG_NAME }}/fcu-course-search-app.zip)
+          [Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v${{ steps.latest_release.outputs.new_tag_name }}/fcu-course-search-app.zip)
           
           ## Technologies
           - EXPO
