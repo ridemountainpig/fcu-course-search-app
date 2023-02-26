@@ -8,43 +8,43 @@ jobs:
   update:
     name: EAS Update
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'expo-deploy')"
+#     if: "contains(github.event.head_commit.message, 'expo-deploy')"
     steps:
-      - name: Check for EXPO_TOKEN
-        run: |
-          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
-            echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
-            exit 1
-          fi
+#       - name: Check for EXPO_TOKEN
+#         run: |
+#           if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+#             echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
+#             exit 1
+#           fi
 
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-          cache: yarn
+#       - name: Setup Node
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 16.x
+#           cache: yarn
 
-      - name: Setup Expo
-        uses: expo/expo-github-action@v7
-        with:
-          expo-version: latest
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
+#       - name: Setup Expo
+#         uses: expo/expo-github-action@v7
+#         with:
+#           expo-version: latest
+#           eas-version: latest
+#           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: 📦 Install dependencies
-        run: yarn install
+#       - name: 📦 Install dependencies
+#         run: yarn install
 
-      - name: Build APK
-        run: eas build --profile preview --platform android --non-interactive --clear-cache
+#       - name: Build APK
+#         run: eas build --profile preview --platform android --non-interactive --clear-cache
 
-      - name: GET APK URL from EXPO
-        run: eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl
+#       - name: GET APK URL from EXPO
+#         run: eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl
 
-      - name: Store apk download URL in env variable
-#         run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
-        run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android --non-interactive | jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
+#       - name: Store apk download URL in env variable
+# #         run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
+#         run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android --non-interactive | jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
 
 #       - name: Send mail
 #         if: always()
@@ -64,20 +64,20 @@ jobs:
 #           attachments: attachments.zip,git.diff,./dist/static/*.js
 #           priority: low
 
-      - name: Download apk file
-        uses: suisei-cn/actions-download-file@v1
-        id: downloadfile # Remember to give an ID if you need the output
-        with:
-          url: 'Downloading APK from [this](${{ env.apk_url }})!'
-          target: public/
-          auto-match: true
-      - name: LIST DIR
-        run: ls -R
+#       - name: Download apk file
+#         uses: suisei-cn/actions-download-file@v1
+#         id: downloadfile # Remember to give an ID if you need the output
+#         with:
+#           url: 'Downloading APK from [this](${{ env.apk_url }})!'
+#           target: public/
+#           auto-match: true
+#       - name: LIST DIR
+#         run: ls -R
 
-      - uses: thedoctor0/zip-release@master
-        with:
-          path: public/
-          filename: fcu-course-search-app.zip
+#       - uses: thedoctor0/zip-release@master
+#         with:
+#           path: public/
+#           filename: fcu-course-search-app.zip
       
       - name: Get latest release tag
         id: latest_release
@@ -90,6 +90,7 @@ jobs:
             }).then(response => response.data.tag_name.replace('v', ''));
             let new_tag_name = (parseInt(tag_name, 10) + 1).toString();
             console.log(new_tag_name);
+            console.log(github.event.head_commit.message)
             // Set the new tag name as an output of this step
             console.log(`::set-output name=new_tag_name::${new_tag_name}`);
         
@@ -98,65 +99,65 @@ jobs:
 #         run: echo "The new tag name is ${{ steps.latest_release.outputs.new_tag_name }}"
 
 
-      - name: Set README content
-        run: |
-          cat << EOF > README.md
-          <p align="center">
-            <img src="https://user-images.githubusercontent.com/92412722/215243095-db310068-f55a-405e-a808-e036bf570812.png" style="width:350px;"/>
-            <img src="https://user-images.githubusercontent.com/92412722/215246631-023e1c19-449a-4ff7-9e65-3fdd4acb85c5.png" style="width:350px;"/>
-          </p>
+#       - name: Set README content
+#         run: |
+#           cat << EOF > README.md
+#           <p align="center">
+#             <img src="https://user-images.githubusercontent.com/92412722/215243095-db310068-f55a-405e-a808-e036bf570812.png" style="width:350px;"/>
+#             <img src="https://user-images.githubusercontent.com/92412722/215246631-023e1c19-449a-4ff7-9e65-3fdd4acb85c5.png" style="width:350px;"/>
+#           </p>
           
-          # FCU Course Search APP
-          A APP for [FCU Course Search](https://github.com/ridemountainpig/fcu-course-search).
+#           # FCU Course Search APP
+#           A APP for [FCU Course Search](https://github.com/ridemountainpig/fcu-course-search).
           
-          ## Download
-          [Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v${{ steps.latest_release.outputs.new_tag_name }}/fcu-course-search-app.zip)
+#           ## Download
+#           [Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v${{ steps.latest_release.outputs.new_tag_name }}/fcu-course-search-app.zip)
           
-          ## Technologies
-          - EXPO
-          - React Native
-          - NativeWind
-          ## Setup Project
-          \`\`\`bash
-          # install expo cli
-          npm install -g expo-cli
-          # install dependencies
-          yarn install
-          # run project
-          expo start
-          \`\`\`
-          EOF
-      - name: Commit changes
-        run: |
-          git config --global user.email "lin0905580802@gmail.com"
-          git config --global user.name "ridemountainpig"
-          git add README.md
-          git commit -m "Update README"
+#           ## Technologies
+#           - EXPO
+#           - React Native
+#           - NativeWind
+#           ## Setup Project
+#           \`\`\`bash
+#           # install expo cli
+#           npm install -g expo-cli
+#           # install dependencies
+#           yarn install
+#           # run project
+#           expo start
+#           \`\`\`
+#           EOF
+#       - name: Commit changes
+#         run: |
+#           git config --global user.email "lin0905580802@gmail.com"
+#           git config --global user.name "ridemountainpig"
+#           git add README.md
+#           git commit -m "Update README"
           
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
+#       - name: Push changes
+#         uses: ad-m/github-push-action@master
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           branch: release-version-action
       
-      - name: Create Release
-        id: create-new-release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        with:
-          tag_name: v${{ steps.latest_release.outputs.new_tag_name }}
-          release_name: Release v${{ steps.latest_release.outputs.new_tag_name }}
+#       - name: Create Release
+#         id: create-new-release
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#         with:
+#           tag_name: v${{ steps.latest_release.outputs.new_tag_name }}
+#           release_name: Release v${{ steps.latest_release.outputs.new_tag_name }}
 
-      - name: Upload asset to Github release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        with:
-          upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-          asset_path: ./fcu-course-search-app.zip
-          asset_name: fcu-course-search-app.zip
-          asset_content_type: application/zip
+#       - name: Upload asset to Github release
+#         uses: actions/upload-release-asset@v1
+#         env:
+#           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#         with:
+#           upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+#           asset_path: ./fcu-course-search-app.zip
+#           asset_name: fcu-course-search-app.zip
+#           asset_content_type: application/zip
 
 #   delete-release:
 #     runs-on: ubuntu-latest
