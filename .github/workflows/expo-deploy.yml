@@ -106,9 +106,9 @@ jobs:
               major = (parseInt(major, 10) + 1).toString();
               minor = 0;
               patch = 0;
-            } else if (commit_message.includes("major")) {
+            } else if (commit_message.includes("minor")) {
               minor = (parseInt(minor, 10) + 1).toString();
-            } else if (commit_message.includes("major")) {
+            } else if (commit_message.includes("patch")) {
               patch = (parseInt(major, 10) + 1).toString();
             }
             
