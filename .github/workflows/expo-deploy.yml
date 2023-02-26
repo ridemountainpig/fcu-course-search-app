@@ -91,16 +91,20 @@ jobs:
             let tag_name = await github.repos.getLatestRelease({
               owner: context.repo.owner,
               repo: context.repo.repo
-            }).then(response => response.data.tag_name.replace('v', '').split('.'));
-            console.log(tag_name);
+            }).then(response => response.data.tag_name.replace('v', ''));
+            console.log(`Tag name: ${tag_name}`);
+            // release version Major.Minor.Patch
+            let [major, minor, patch] = tag_name.split('.');
+            console.log(`Major version: ${major}`);
+            console.log(`Minor version: ${minor}`);
+            console.log(`Patch version: ${patch}`);
             let new_tag_name = (parseInt(tag_name, 10) + 1).toString();
             console.log(new_tag_name);
             // Set the new tag name as an output of this step
             console.log(`::set-output name=new_tag_name::${new_tag_name}`);
-            // Major.Minor.Patch
+            
             let commit_message = ${{ steps.commit_message.outputs.commit_message }};
             console.log(commit_message);
-            console.log(`Commit message: ${{ steps.commit_message.outputs.commit_message }}`)
         
 #       # Use the new tag name output in the next steps
 #       - name: Use the new tag name
