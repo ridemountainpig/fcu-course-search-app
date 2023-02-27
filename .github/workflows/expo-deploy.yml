@@ -85,7 +85,7 @@ jobs:
       
       - name: Get latest release tag
         id: latest_release
-        uses: actions/github-script@v4.1.0
+        uses: actions/github-script@v6.4.0
         with:
           script: |
             let tag_name = await github.repos.getLatestRelease({
