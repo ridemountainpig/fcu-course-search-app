@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",
-    "tailwindcss": "^3.2.7"
+    "tailwindcss": "^3.3.1"
   },
   "private": true
 }
