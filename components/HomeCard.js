@@ -14,9 +14,9 @@ function HomeCard(props) {
                 <Ionicons name={props.iconName} size={50}></Ionicons>
             </View>
             <View className="flex justify-center">
-                <View className="pb-10 ml-16">
-                    <Text className="font-bold text-2xl text-gray-600">{props.title}</Text>
-                    <Text className="font-medium text-sm text-gray-400">{props.subtitle}</Text>
+                <View className="pb-10">
+                    <Text className="mx-auto font-bold text-2xl text-gray-600 py-1">{props.title}</Text>
+                    <Text className="mx-auto font-medium text-sm text-gray-400">{props.subtitle}</Text>
                 </View>
             </View>
             {/* </a> */}
