@@ -8,10 +8,15 @@ function FollowCourse() {
     const [inputValue, setInputValue] = useState('');
     const textInputRef = useRef(null);
 
+    const [courseNumber, setCourseNumber] = useState('');
+    // useEffect(() => {
+    //     console.log("courseNumber:", courseNumber);
+    // }, [courseNumber]);
+
     const addCourse = async () => {
         if (inputValue) {
             try {
-                let checkUrl = 'https://fcu-course-search.ridemountainpig.repl.co/checkcourse/' + inputValue;
+                let checkUrl = 'https://fcu-course-search.repl.co/checkcourse/' + inputValue;
                 let response = await fetch(checkUrl, {
                     method: 'GET',
                 });
@@ -64,9 +69,10 @@ function FollowCourse() {
     const generateCourseList = async () => {
         let items = await getAllData();
         let courseList = [];
+        setCourseNumber(items.length);
 
         for (let i = 0; i < items.length; i++) {
-            let url = 'https://fcu-course-search.ridemountainpig.repl.co/getCourse/' + items[i][1];
+            let url = 'https://fcu-course-search.repl.co/searchcourse/' + items[i][1];
             let response = await fetch(url, {
                 method: 'GET',
             });
@@ -93,13 +99,25 @@ function FollowCourse() {
                 <Text className="font-bold text-3xl text-gray-600">Follow Course</Text>
                 <Text className="font-semibold text-lg text-gray-400 mt-1 mx-auto">關注課程</Text>
             </View>
-            <View className="w-10/12 mx-auto">
-                <View className="flex ">
-                    <TextInput ref={textInputRef} placeholder="請輸入課程號碼" keyboardType="numeric" onChangeText={(text) => setInputValue(text)} onBlur={() => Keyboard.dismiss()} value={inputValue} style={{ backgroundColor: '#ffffff', color: '#6b7280', borderColor: '#e2e8f0' }} className="block w-full p-4 text-base text-center font-bold rounded-lg border-4" />
+            <View className="w-10/12 mx-auto rounded-2xl"
+                style={{ backgroundColor: 'white', width: '92%' }}
+            >
+                <View className="flex my-4 mx-6">
+                    <TextInput ref={textInputRef}
+                        placeholder="請輸入課程號碼"
+                        keyboardType="numeric"
+                        onChangeText={(text) => setInputValue(text)} onBlur={() => Keyboard.dismiss()}
+                        value={inputValue}
+                        style={{ color: '#6b7280' }}
+                        className="block w-full text-base p-4 text-center font-bold rounded-lg bg-slate-100"
+                    />
                 </View>
                 <TouchableOpacity activeOpacity={0.8} onPress={addCourse}>
-                    <View className="bg-sky-100 rounded-lg p-3 w-5/12 mt-2 mx-auto">
-                        <Text className="text-gray-500 font-semibold text-lg text-center"><Ionicons name='add-circle-outline' size={16}></Ionicons> 關注課程</Text>
+                    <View className="bg-sky-100 rounded-lg py-3 w-5/12 mb-2 mx-auto">
+                        <Text className="text-gray-500 font-semibold text-lg text-center">
+                            {/* <Ionicons name='add-circle-outline' size={16}></Ionicons> */}
+                            關注課程
+                        </Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -107,28 +125,31 @@ function FollowCourse() {
                 <FlatList
                     data={data}
                     keyExtractor={item => item.courseNumber}
-                    className="rounded-2xl mx-auto mt-2"
-                    style={{ backgroundColor: '#dfe7d5', width: '96%', height: '60%' }}
+                    className="rounded-2xl mx-auto mt-2 bg-backgroundGreen"
+                    style={{ backgroundColor: '#dfe7d5', width: '92%', height: '58%' }}
                     renderItem={({ item }) => (
-                        <View className="mx-auto items-center p-2 my-2 bg-white rounded-xl w-11/12">
-                            <Text className="flex justify-center items-center p-5 m-3 text-gray-600 font-extrabold text-lg bg-slate-100 rounded-lg">
+                        <View className="mx-auto items-center p-1 my-2 bg-white rounded-xl w-11/12">
+                            <Text className="flex justify-center items-center p-4 m-3 w-85% text-gray-600 font-extrabold text-lg bg-slate-100 rounded-lg text-center">
                                 {item.courseNumber}
                             </Text>
                             <View className="flex justify-center">
-                                <Text className="text-gray-600 font-bold text-xl">
+                                <Text className="text-gray-600 font-bold text-lg">
                                     {item.courseName}
                                 </Text>
                             </View>
                             <View className="flex justify-center">
-                                <Text className="text-gray-400 font-medium text-sm mt-2">
-                                    {item.courseDate + " " + item.courseClass}
+                                <Text className="mx-auto items-center text-gray-400 font-bold text-sm mt-2">
+                                    {item.courseDate}
+                                </Text>
+                                <Text className="mx-auto items-center text-gray-400 font-bold text-sm mt-2">
+                                    {item.courseClass}
                                 </Text>
                             </View>
                             <Text className="flex justify-end items-center text-orange-400 font-bold text-xl mt-2">
                                 <Text>{item.courseBalance}<Ionicons name="flash" size={20}></Ionicons>{item.courseSum}</Text>
                             </Text>
                             <TouchableOpacity activeOpacity={0.8} onPress={() => deleteCourse(`${item.courseNumber}`)} className="flex justify-center">
-                                <Text className="p-5 m-3 text-gray-600 font-bold text-lg rounded-lg" style={{ backgroundColor: 'rgb(254, 202, 202)' }}>取消關注</Text>
+                                <Text className="p-4 m-3 text-gray-600 font-bold text-base rounded-lg" style={{ backgroundColor: 'rgb(254, 202, 202)' }}>取消關注</Text>
                             </TouchableOpacity>
                         </View>
                     )}
