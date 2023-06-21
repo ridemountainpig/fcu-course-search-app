@@ -41,11 +41,11 @@ function Home({ navigation }) {
                         </View>
                     </View>
                     <View className="flex items-center justify-center text-gray-400 p-8 pb-20">
-                        <Text className="font-medium text-lg text-gray-600" onPress={() => Linking.openURL("https://github.com/ridemountainpig")}>
+                        <Text className="font-medium text-base text-gray-600" onPress={() => Linking.openURL("https://github.com/ridemountainpig")}>
                             <Ionicons name="battery-charging" size={16} color={'#22c55e'}></Ionicons> Power By ridemountainpig
                         </Text>
                         <View className="my-2 py-2 px-4 bg-white rounded-xl">
-                            <Text className="font-medium text-lg text-gray-600" onPress={() => Linking.openURL("https://github.com/ridemountainpig/fcu-course-search-app")}>
+                            <Text className="font-medium text-base text-gray-600" onPress={() => Linking.openURL("https://github.com/ridemountainpig/fcu-course-search-app")}>
                                 <Ionicons name="logo-github" size={16}></Ionicons> Github
                             </Text>
                         </View>
