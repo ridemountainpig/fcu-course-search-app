@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { View, Text, TextInput, TouchableOpacity, FlatList, Keyboard, Alert } from 'react-native'
+import CourseLoading from '../components/CourseLoading';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -8,10 +9,10 @@ function FollowCourse() {
     const [inputValue, setInputValue] = useState('');
     const textInputRef = useRef(null);
 
-    const [courseNumber, setCourseNumber] = useState('');
+    const [courseCount, setCourseCount] = useState('');
     // useEffect(() => {
-    //     console.log("courseNumber:", courseNumber);
-    // }, [courseNumber]);
+    //     console.log("courseCount:", courseCount);
+    // }, [courseCount]);
 
     const addCourse = async () => {
         if (inputValue) {
@@ -67,9 +68,9 @@ function FollowCourse() {
     }, []);
 
     const generateCourseList = async () => {
+        setCourseCount('loading');
         let items = await getAllData();
         let courseList = [];
-        setCourseNumber(items.length);
 
         for (let i = 0; i < items.length; i++) {
             let url = 'https://fcu-course-search.repl.co/searchcourse/' + items[i][1];
@@ -80,6 +81,7 @@ function FollowCourse() {
             courseList.push(data["0"]);
         }
         setData(Object.values(courseList));
+        setCourseCount(items.length);
     }
 
     const courseErrorAlert = () => {
@@ -122,38 +124,55 @@ function FollowCourse() {
                 </TouchableOpacity>
             </View>
             <View>
-                <FlatList
-                    data={data}
-                    keyExtractor={item => item.courseNumber}
-                    className="rounded-2xl mx-auto mt-2 bg-backgroundGreen"
-                    style={{ backgroundColor: '#dfe7d5', width: '92%', height: '58%' }}
-                    renderItem={({ item }) => (
-                        <View className="mx-auto items-center p-1 my-2 bg-white rounded-xl w-11/12">
-                            <Text className="flex justify-center items-center p-4 m-3 w-85% text-gray-600 font-extrabold text-lg bg-slate-100 rounded-lg text-center">
-                                {item.courseNumber}
-                            </Text>
-                            <View className="flex justify-center">
-                                <Text className="text-gray-600 font-bold text-lg">
-                                    {item.courseName}
-                                </Text>
+                {
+                    courseCount == 'loading' ?
+                        <CourseLoading />
+                        :
+                        courseCount ?
+                            <FlatList
+                                data={data}
+                                keyExtractor={item => item.courseNumber}
+                                className="rounded-2xl mx-auto mt-2 bg-backgroundGreen"
+                                style={{ backgroundColor: '#dfe7d5', width: '92%', height: '58%' }}
+                                renderItem={({ item }) => (
+                                    <View className="mx-auto items-center p-1 my-2 bg-white rounded-xl w-11/12">
+                                        <Text className="flex justify-center items-center p-4 m-3 w-85% text-gray-600 font-extrabold text-lg bg-slate-100 rounded-lg text-center">
+                                            {item.courseNumber}
+                                        </Text>
+                                        <View className="flex justify-center">
+                                            <Text className="text-gray-600 font-bold text-lg">
+                                                {item.courseName}
+                                            </Text>
+                                        </View>
+                                        <View className="flex justify-center">
+                                            <Text className="mx-auto items-center text-gray-400 font-bold text-sm mt-2">
+                                                {item.courseDate}
+                                            </Text>
+                                            <Text className="mx-auto items-center text-gray-400 font-bold text-sm mt-2">
+                                                {item.courseClass}
+                                            </Text>
+                                        </View>
+                                        <Text className="flex justify-end items-center text-orange-400 font-bold text-xl mt-2">
+                                            <Text>{item.courseBalance}<Ionicons name="flash" size={20}></Ionicons>{item.courseSum}</Text>
+                                        </Text>
+                                        <TouchableOpacity activeOpacity={0.8} onPress={() => deleteCourse(`${item.courseNumber}`)} className="flex justify-center">
+                                            <Text className="p-4 m-3 text-gray-600 font-bold text-base rounded-lg" style={{ backgroundColor: 'rgb(254, 202, 202)' }}>取消關注</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
+                            />
+                            :
+                            <View className="rounded-2xl mx-auto mt-2 bg-backgroundGreen"
+                                style={{ backgroundColor: '#dfe7d5', width: '92%', height: '76%' }}
+                            >
+                                <View className="h-full flex items-center justify-around">
+                                    <View className="flex items-center">
+                                        <Text className="font-black text-3xl px-6 pt-5 pb-4 my-2 text-gray-600 bg-white rounded-xl">尚未關注課程</Text>
+                                        <Ionicons name="happy-outline" size={80} style={{ color: 'rgb(75 85 99)' }}></Ionicons>
+                                    </View>
+                                </View>
                             </View>
-                            <View className="flex justify-center">
-                                <Text className="mx-auto items-center text-gray-400 font-bold text-sm mt-2">
-                                    {item.courseDate}
-                                </Text>
-                                <Text className="mx-auto items-center text-gray-400 font-bold text-sm mt-2">
-                                    {item.courseClass}
-                                </Text>
-                            </View>
-                            <Text className="flex justify-end items-center text-orange-400 font-bold text-xl mt-2">
-                                <Text>{item.courseBalance}<Ionicons name="flash" size={20}></Ionicons>{item.courseSum}</Text>
-                            </Text>
-                            <TouchableOpacity activeOpacity={0.8} onPress={() => deleteCourse(`${item.courseNumber}`)} className="flex justify-center">
-                                <Text className="p-4 m-3 text-gray-600 font-bold text-base rounded-lg" style={{ backgroundColor: 'rgb(254, 202, 202)' }}>取消關注</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )}
-                />
+                }
             </View>
         </View>
     )
