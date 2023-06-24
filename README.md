@@ -4,16 +4,21 @@
 </p>
 
 # FCU Course Search APP
+
 A APP for [FCU Course Search](https://github.com/ridemountainpig/fcu-course-search).
 
 ## Download
+
 [Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v1.0.1/fcu-course-search-app.zip)
 
 ## Technologies
-- EXPO
-- React Native
-- NativeWind
+
+-   EXPO
+-   React Native
+-   NativeWind
+
 ## Setup Project
+
 ```bash
 # install expo cli
 npm install -g expo-cli

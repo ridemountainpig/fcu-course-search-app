@@ -1,39 +1,37 @@
 {
-  "expo": {
-    "name": "FCU Course Search",
-    "slug": "App",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/FF.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/FF.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/FF.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "FCU.Course"
-    },
-    "web": {
-      "favicon": "./assets/FF.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "826bfa6b-c3a8-456a-bce5-679c29261267"
-      }
+    "expo": {
+        "name": "FCU Course Search",
+        "slug": "App",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/FF.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./assets/FF.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/FF.png",
+                "backgroundColor": "#FFFFFF"
+            },
+            "package": "FCU.Course"
+        },
+        "web": {
+            "favicon": "./assets/FF.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "826bfa6b-c3a8-456a-bce5-679c29261267"
+            }
+        }
     }
-  }
 }

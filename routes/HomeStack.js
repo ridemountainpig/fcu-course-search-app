@@ -14,7 +14,7 @@ const screens = {
     FollowCourse: {
         screen: FollowCourse,
     },
-}
+};
 
 const HomeStack = createStackNavigator(screens);
 
