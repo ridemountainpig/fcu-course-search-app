@@ -29,11 +29,16 @@ function Home({ navigation }) {
                     </View>
                     <View className="flex justify-center">
                         <View className="flex items-center justify-center">
-                            <TouchableOpacity activeOpacity={1}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate('SearchCourse');
+                                }}
+                                activeOpacity={1}
+                            >
                                 <HomeCard
                                     iconName="planet-outline"
                                     title="Course Number"
-                                    subtitle="課程代號"
+                                    subtitle="查詢課程"
                                 ></HomeCard>
                             </TouchableOpacity>
                         </View>
