@@ -9,6 +9,7 @@ import {
     Alert,
 } from 'react-native';
 import CourseLoading from '../components/CourseLoading';
+import CourseNumberErrorModal from '../components/CourseNumberErrorModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -20,6 +21,12 @@ function FollowCourse() {
     // useEffect(() => {
     //     console.log("courseCount:", courseCount);
     // }, [courseCount]);
+
+    const [modalVisible, setModalVisible] = React.useState(false);
+
+    const closeModal = () => {
+        setModalVisible(false);
+    };
 
     const addCourse = async () => {
         if (inputValue) {
@@ -37,7 +44,8 @@ function FollowCourse() {
                     await AsyncStorage.setItem(inputValue, inputValue);
                     generateCourseList();
                 } else {
-                    courseErrorAlert();
+                    // courseErrorAlert();
+                    setModalVisible(true);
                     setInputValue('');
                     textInputRef.current.blur();
                 }
@@ -223,6 +231,9 @@ function FollowCourse() {
                     </View>
                 )}
             </View>
+            {modalVisible ? (
+                <CourseNumberErrorModal closeModal={closeModal} />
+            ) : null}
         </View>
     );
 }
