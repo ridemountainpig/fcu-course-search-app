@@ -123,7 +123,8 @@ jobs:
 
                   let new_tag_name = major + "." + minor + "." + patch;
                   console.log(new_tag_name);
-                  console.log(`::set-env name=NEW_TAG_NAME::${new_tag_name}`);
+                  echo "NEW TAG NAME: $new_tag_name"
+                  echo "NEW_TAG_NAME=$new_tag_name" >> $GITHUB_ENV
 
             - name: Set README content
               run: |
@@ -149,14 +150,14 @@ jobs:
 
                   ## Setup Project
 
-                  ```bash
+                  \`\`\`bash
                   # install expo cli
                   npm install -g expo-cli
                   # install dependencies
                   yarn install
                   # run project
                   expo start
-                  ```
+                  \`\`\`
                   EOF
             - name: Commit changes
               run: |
