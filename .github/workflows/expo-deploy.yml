@@ -89,11 +89,11 @@ jobs:
               uses: actions/github-script@v6.4.1
               with:
                 script: |
-                  const { data: releases } = await github.repos.listReleases({
+                  const response = await github.request('GET /repos/{owner}/{repo}/releases', {
                     owner: context.repo.owner,
                     repo: context.repo.repo,
-                    per_page: 1,
                   });
+                  const releases = response.data;
                   const latestRelease = releases[0];
                   const tag_name = latestRelease.tag_name.replace('v', '');
                   console.log(`Tag name: ${tag_name}`);
@@ -121,8 +121,11 @@ jobs:
                     patch = (parseInt(patch, 10) + 1).toString();
                   }
 
-                  let new_tag_name = major + "." + minor + "." + patch
+                  let new_tag_name = major + "." + minor + "." + patch;
+                  console.log(new_tag_name);
 
+                  console.log(`new_tag_name = ${new_tag_name}`);
+                  console.log(`::set-output name=new_tag_name::${new_tag_name}`);
 
             - name: Set README content
               run: |
