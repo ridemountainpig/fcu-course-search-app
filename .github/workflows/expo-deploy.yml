@@ -42,7 +42,7 @@ jobs:
             - name: GET APK URL from EXPO
               run: |
                 build_output=$(eas build:list --json --limit=1 --platform=android --non-interactive)
-                apk_url=$(echo "$build_output" | jq -r '.[0].artifacts[].url | select(contains(".apk"))')
+                apk_url=$(echo "$build_output" | jq -r '.[0].artifacts.buildUrl')
                 echo "APK URL: $apk_url"
                 echo "APK_URL=$apk_url" >> $GITHUB_ENV
 
