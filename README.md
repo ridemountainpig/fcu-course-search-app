@@ -1,24 +1,19 @@
 <p align="center">
-  <img src="https://github.com/ridemountainpig/fcu-course-search-app/assets/92412722/1f7990a6-dbbc-48f8-91fa-54ff48424ed3" style="width:350px;"/>
-  <img src="https://github.com/ridemountainpig/fcu-course-search-app/assets/92412722/14146cef-8179-40ea-b7d6-e90b7d2e84b9" style="width:350px;"/>
+  <img src="https://user-images.githubusercontent.com/92412722/215243095-db310068-f55a-405e-a808-e036bf570812.png" style="width:350px;"/>
+  <img src="https://user-images.githubusercontent.com/92412722/215246631-023e1c19-449a-4ff7-9e65-3fdd4acb85c5.png" style="width:350px;"/>
 </p>
 
 # FCU Course Search APP
-
 A APP for [FCU Course Search](https://github.com/ridemountainpig/fcu-course-search).
 
 ## Download
-
-[Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v1.0.1/fcu-course-search-app.zip)
+[Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v1.1.0/fcu-course-search-app.zip)
 
 ## Technologies
-
--   EXPO
--   React Native
--   NativeWind
-
+- EXPO
+- React Native
+- NativeWind
 ## Setup Project
-
 ```bash
 # install expo cli
 npm install -g expo-cli
