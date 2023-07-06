@@ -123,8 +123,7 @@ jobs:
 
                   let new_tag_name = major + "." + minor + "." + patch;
                   console.log(new_tag_name);
-
-                  echo "NEW_TAG_NAME=$new_tag_name" >> $GITHUB_ENV
+                  console.log(`::set-env name=NEW_TAG_NAME::${new_tag_name}`);
 
             - name: Set README content
               run: |
@@ -135,24 +134,29 @@ jobs:
                   </p>
 
                   # FCU Course Search APP
+
                   A APP for [FCU Course Search](https://github.com/ridemountainpig/fcu-course-search).
 
                   ## Download
-                  [Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v${{ env.NEW_TAG_NAME }}/fcu-course-search-app.zip)
+
+                  [Download the latest APK release](https://github.com/ridemountainpig/fcu-course-search-app/releases/download/v1.0.1/fcu-course-search-app.zip)
 
                   ## Technologies
-                  - EXPO
-                  - React Native
-                  - NativeWind
+
+                  -   EXPO
+                  -   React Native
+                  -   NativeWind
+
                   ## Setup Project
-                  \`\`\`bash
+
+                  ```bash
                   # install expo cli
                   npm install -g expo-cli
                   # install dependencies
                   yarn install
                   # run project
                   expo start
-                  \`\`\`
+                  ```
                   EOF
             - name: Commit changes
               run: |
