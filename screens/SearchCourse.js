@@ -1,17 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Linking,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Linking } from 'react-native';
+import CourseNumberErrorModal from '../components/CourseNumberErrorModal';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 function SearchCourse() {
     const [courseInputValue, setCourseInputValue] = useState('');
     const courseInputRef = useRef(null);
     const [showCourseState, setShowCourseState] = useState(false);
+
     const [courseData, setCourseData] = useState({
         0: {
             courseBalance: '',
@@ -24,6 +20,12 @@ function SearchCourse() {
             courseTeacher: '',
         },
     });
+
+    const [modalVisible, setModalVisible] = React.useState(false);
+
+    const closeModal = () => {
+        setModalVisible(false);
+    };
 
     const getCourseData = async () => {
         if (courseInputValue) {
@@ -41,7 +43,7 @@ function SearchCourse() {
                     setCourseData(data);
                     setShowCourseState('true');
                 } else {
-                    // courseErrorAlert();
+                    setModalVisible(true);
                     setCourseInputValue('');
                     courseInputRef.current.blur();
                 }
@@ -143,6 +145,9 @@ function SearchCourse() {
                     </View>
                 )}
             </View>
+            {modalVisible ? (
+                <CourseNumberErrorModal closeModal={closeModal} />
+            ) : null}
         </View>
     );
 }
