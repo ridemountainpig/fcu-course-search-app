@@ -36,8 +36,8 @@ jobs:
             - name: 📦 Install dependencies
               run: yarn install
 
-            - name: Build APK
-              run: eas build --profile preview --platform android --non-interactive --clear-cache
+#             - name: Build APK
+#               run: eas build --profile preview --platform android --non-interactive --clear-cache
 
             - name: GET APK URL from EXPO
               run: |
