@@ -2,7 +2,7 @@ name: Build and release expo app
 on:
     push:
         branches:
-            - 'main'
+            - 'expo-deploy-dev'
 
 jobs:
     update:
@@ -40,11 +40,11 @@ jobs:
               run: eas build --profile preview --platform android --non-interactive --clear-cache
 
             - name: GET APK URL from EXPO
-              run: eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl
-
-            - name: Store apk download URL in env variable
-              #         run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android |  jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
-              run: echo "apk_url=$(eas build:list --json --limit=1 --platform=android --non-interactive | jq -r .[0].artifacts.buildUrl)" >> $GITHUB_ENV
+              run: |
+                build_output=$(eas build:list --json --limit=1 --platform=android --non-interactive)
+                apk_url=$(echo "$build_output" | jq -r '.[0].artifacts[].url | select(contains(".apk"))')
+                echo "APK URL: $apk_url"
+                echo "APK_URL=$apk_url" >> $GITHUB_ENV
 
             #       - name: Send mail
             #         if: always()
@@ -168,26 +168,26 @@ jobs:
               uses: ad-m/github-push-action@master
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
-                  branch: main
+                  branch: expo-deploy-dev
 
-            - name: Create Release
-              id: create-new-release
-              uses: actions/create-release@v1
-              env:
-                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-              with:
-                  tag_name: v${{ steps.latest_release.outputs.new_tag_name }}
-                  release_name: Release v${{ steps.latest_release.outputs.new_tag_name }}
+#             - name: Create Release
+#               id: create-new-release
+#               uses: actions/create-release@v1
+#               env:
+#                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#               with:
+#                   tag_name: v${{ steps.latest_release.outputs.new_tag_name }}
+#                   release_name: Release v${{ steps.latest_release.outputs.new_tag_name }}
 
-            - name: Upload asset to Github release
-              uses: actions/upload-release-asset@v1
-              env:
-                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-              with:
-                  upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-                  asset_path: ./fcu-course-search-app.zip
-                  asset_name: fcu-course-search-app.zip
-                  asset_content_type: application/zip
+#             - name: Upload asset to Github release
+#               uses: actions/upload-release-asset@v1
+#               env:
+#                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#               with:
+#                   upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+#                   asset_path: ./fcu-course-search-app.zip
+#                   asset_name: fcu-course-search-app.zip
+#                   asset_content_type: application/zip
 #   delete-release:
 #     runs-on: ubuntu-latest
 #     needs: update
