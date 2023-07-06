@@ -66,11 +66,12 @@ jobs:
 
             - name: Download apk file
               uses: suisei-cn/actions-download-file@v1
-              id: downloadfile # Remember to give an ID if you need the output
+              id: downloadfile
               with:
-                  url: 'Downloading APK from [this](${{ env.apk_url }})!'
-                  target: public/
-                  auto-match: true
+                url: "Downloading APK from [this](${{ env.APK_URL }})!"
+                target: public/
+                auto-match: true
+
             - name: LIST DIR
               run: ls -R
 
