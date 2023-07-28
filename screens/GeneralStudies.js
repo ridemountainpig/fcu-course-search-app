@@ -9,7 +9,7 @@ function GeneralStudies() {
 
     useEffect(() => {
         setCourseCount('loading');
-        fetch('https://fcu-course-search.repl.co/getGeneralStudiesList', {
+        fetch('https://fcu-course-search.zeabur.app/getGeneralStudiesList', {
             method: 'GET',
         })
             .then((response) => response.json())

@@ -32,7 +32,7 @@ function FollowCourse() {
         if (inputValue) {
             try {
                 let checkUrl =
-                    'https://fcu-course-search.repl.co/checkcourse/' +
+                    'https://fcu-course-search.zeabur.app/checkcourse/' +
                     inputValue;
                 let response = await fetch(checkUrl, {
                     method: 'GET',
@@ -91,7 +91,7 @@ function FollowCourse() {
 
         for (let i = 0; i < items.length; i++) {
             let url =
-                'https://fcu-course-search.repl.co/searchcourse/' + items[i][1];
+                'https://fcu-course-search.zeabur.app/searchcourse/' + items[i][1];
             let response = await fetch(url, {
                 method: 'GET',
             });

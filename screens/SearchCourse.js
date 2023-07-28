@@ -31,7 +31,7 @@ function SearchCourse() {
         if (courseInputValue) {
             try {
                 let checkUrl =
-                    'https://fcu-course-search.repl.co/searchcourse/' +
+                    'https://fcu-course-search.zeabur.app/searchcourse/' +
                     courseInputValue;
                 let response = await fetch(checkUrl, {
                     method: 'GET',
