@@ -71,12 +71,12 @@ function Home({ navigation }) {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View className="flex items-center justify-center p-8 pb-20 text-gray-400">
+                    <View className="mb-16 flex items-center justify-center p-8 pb-20 text-gray-400">
                         <Text
                             className="text-base font-medium text-gray-600"
                             onPress={() =>
                                 Linking.openURL(
-                                    'https://github.com/ridemountainpig'
+                                    'https://github.com/ridemountainpig',
                                 )
                             }
                         >
@@ -87,15 +87,15 @@ function Home({ navigation }) {
                             ></Ionicons>{' '}
                             Power By ridemountainpig
                         </Text>
-                        <View className="my-2 rounded-xl bg-white px-4 py-2">
-                            <Text
-                                className="text-base font-medium text-gray-600"
-                                onPress={() =>
-                                    Linking.openURL(
-                                        'https://github.com/ridemountainpig/fcu-course-search-app'
-                                    )
-                                }
-                            >
+                        <View
+                            className="my-4 rounded-xl bg-white px-4 py-3"
+                            onPress={() =>
+                                Linking.openURL(
+                                    'https://github.com/ridemountainpig/fcu-course-search-app',
+                                )
+                            }
+                        >
+                            <Text className="text-base font-medium text-gray-600">
                                 <Ionicons
                                     name="logo-github"
                                     size={16}

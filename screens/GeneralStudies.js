@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Linking } from 'react-native';
 import CourseLoading from '../components/CourseLoading';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -38,9 +38,11 @@ function GeneralStudies() {
                     className="mx-4 mb-20 rounded-xl bg-backgroundGreen py-2"
                     renderItem={({ item }) => (
                         <View className="mx-auto my-2 w-11/12 items-center rounded-xl bg-white p-1">
-                            <Text className="m-3 flex w-85% items-center justify-center rounded-lg bg-slate-100 p-4 text-center text-lg font-extrabold text-gray-600">
-                                {item.courseNumber}
-                            </Text>
+                            <View className="m-3 flex w-85% items-center justify-center rounded-xl bg-slate-100 p-4">
+                                <Text className=" text-center text-lg font-extrabold text-gray-600">
+                                    {item.courseNumber}
+                                </Text>
+                            </View>
                             <View className="flex justify-center">
                                 <Text className="text-lg font-extrabold text-gray-600">
                                     {item.courseName}
@@ -62,17 +64,19 @@ function GeneralStudies() {
                                 </Text>
                             </Text>
                             <View className="flex justify-center">
-                                <Text
-                                    className="m-3 rounded-lg p-4 text-base font-bold text-gray-600"
+                                <TouchableOpacity
+                                    className="m-3 rounded-lg p-4"
                                     style={{ backgroundColor: '#dfe7d5' }}
                                     onPress={() =>
                                         Linking.openURL(
-                                            `${item.courseIntroduceUrl}`
+                                            `${item.courseIntroduceUrl}`,
                                         )
                                     }
                                 >
-                                    課程大綱
-                                </Text>
+                                    <Text className="text-base font-bold text-gray-600">
+                                        課程大綱
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     )}
@@ -88,9 +92,11 @@ function GeneralStudies() {
                 >
                     <View className="flex h-full items-center justify-around">
                         <View className="flex items-center">
-                            <Text className="my-2 rounded-xl bg-white px-6 pb-4 pt-5 text-3xl font-black text-gray-600">
-                                通識課程皆已額滿
-                            </Text>
+                            <View className="my-2 rounded-xl bg-white px-6 pb-4 pt-5">
+                                <Text className="text-3xl font-black text-gray-600">
+                                    通識課程皆已額滿
+                                </Text>
+                            </View>
                             <Ionicons
                                 name="sad-outline"
                                 size={80}

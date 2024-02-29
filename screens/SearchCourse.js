@@ -55,9 +55,9 @@ function SearchCourse() {
 
     return (
         <View className="relative h-screen bg-slate-100">
-            <Text className="absolute -left-20 bottom-6 h-64 w-64 rounded-full bg-gradient4 opacity-60 blur-3xl"></Text>
+            <View className="absolute -left-20 bottom-6 h-72 w-72 rounded-full bg-gradient4 opacity-40 blur-3xl"></View>
             <View className="relative mx-auto mb-2 mt-6">
-                <Text className="absolute -right-40 -top-20 h-44 w-44 rounded-full bg-gradient1 opacity-20 blur-3xl"></Text>
+                <View className="absolute -right-40 -top-20 h-52 w-52 rounded-full bg-gradient1 opacity-20 blur-3xl"></View>
                 <Text className="text-3xl font-bold text-gray-600">
                     Search Course
                 </Text>
@@ -66,30 +66,34 @@ function SearchCourse() {
                 </Text>
             </View>
             <View className="relative mx-5 flex h-3/5 items-center justify-center">
-                <Text className="absolute -left-20 top-6 h-44 w-44 rounded-full bg-gradient2 opacity-100 blur-3xl"></Text>
-                <Text className="absolute -right-16 bottom-24 h-44 w-44 rounded-full bg-gradient3 opacity-20 blur-3xl"></Text>
+                <View className="absolute -left-20 top-6 h-52 w-52 rounded-full bg-gradient2 opacity-80 blur-3xl"></View>
+                <View className="absolute -right-16 bottom-24 h-52 w-52 rounded-full bg-gradient3 opacity-20 blur-3xl"></View>
                 {!showCourseState ? (
-                    <View className="h-1/3 w-full">
-                        <TextInput
-                            ref={courseInputRef}
-                            placeholder="請輸入課程號碼"
-                            keyboardType="numeric"
-                            onChangeText={(text) => setCourseInputValue(text)}
-                            // onBlur={() => Keyboard.dismiss()}
-                            value={courseInputValue}
-                            style={{ color: '#6b7280' }}
-                            className="block w-full rounded-lg border-8 border-white bg-slate-100 p-6 text-center text-lg font-semibold text-gray-500"
-                        />
-                        <TouchableOpacity
-                            onPress={getCourseData}
-                            activeOpacity={0.8}
-                        >
-                            <View className="mx-auto mt-4 rounded-lg border-8 border-white bg-orange-100 px-6 py-4">
-                                <Text className="text-center text-lg font-semibold text-gray-500">
-                                    查詢課程
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
+                    <View className="flex h-2/5 w-full items-center justify-center rounded-lg bg-white">
+                        <View className="h-fit w-[90%]">
+                            <TextInput
+                                ref={courseInputRef}
+                                placeholder="請輸入課程號碼"
+                                keyboardType="numeric"
+                                onChangeText={(text) =>
+                                    setCourseInputValue(text)
+                                }
+                                // onBlur={() => Keyboard.dismiss()}
+                                value={courseInputValue}
+                                style={{ color: '#6b7280' }}
+                                className="block w-full rounded-lg bg-slate-100 p-6 text-center text-lg font-semibold text-gray-500"
+                            />
+                            <TouchableOpacity
+                                onPress={getCourseData}
+                                activeOpacity={0.8}
+                            >
+                                <View className="mx-auto mt-4 rounded-lg bg-orange-100 px-6 py-4">
+                                    <Text className="text-center text-lg font-semibold text-gray-500">
+                                        查詢課程
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 ) : (
                     <View className="h-full w-full">
@@ -104,9 +108,11 @@ function SearchCourse() {
                                     color={'#ffffff'}
                                 ></Ionicons>
                             </TouchableOpacity>
-                            <Text className="mx-auto -mt-8 rounded-2xl bg-backgroundGreen px-16 py-6 text-center text-xl font-bold text-gray-600">
-                                {courseData['0']['courseNumber']}
-                            </Text>
+                            <View className="mx-auto -mt-8 rounded-2xl bg-backgroundGreen px-16 py-6">
+                                <Text className="text-center text-xl font-bold text-gray-600">
+                                    {courseData['0']['courseNumber']}
+                                </Text>
+                            </View>
                             <View className="mx-8">
                                 <Text className="mt-10 text-2xl font-extrabold text-gray-600">
                                     {courseData['0']['courseName']}
@@ -129,17 +135,19 @@ function SearchCourse() {
                                 </Text>
                             </Text>
                             <View className="mx-auto">
-                                <Text
-                                    className="m-4 rounded-lg p-5 text-base font-bold text-gray-600"
+                                <View
+                                    className="m-4 rounded-lg p-5"
                                     style={{ backgroundColor: '#dfe7d5' }}
                                     onPress={() =>
                                         Linking.openURL(
-                                            `${courseData['0']['courseIntroduceUrl']}`
+                                            `${courseData['0']['courseIntroduceUrl']}`,
                                         )
                                     }
                                 >
-                                    課程大綱
-                                </Text>
+                                    <Text className="text-base font-bold text-gray-600">
+                                        課程大綱
+                                    </Text>
+                                </View>
                             </View>
                         </View>
                     </View>

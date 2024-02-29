@@ -91,7 +91,8 @@ function FollowCourse() {
 
         for (let i = 0; i < items.length; i++) {
             let url =
-                'https://fcu-course-search.zeabur.app/searchcourse/' + items[i][1];
+                'https://fcu-course-search.zeabur.app/searchcourse/' +
+                items[i][1];
             let response = await fetch(url, {
                 method: 'GET',
             });
@@ -107,7 +108,7 @@ function FollowCourse() {
             '課程代碼錯誤',
             '請確認課程代碼是否正確',
             [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-            { cancelable: false }
+            { cancelable: false },
         );
     };
 
@@ -138,7 +139,7 @@ function FollowCourse() {
                     />
                 </View>
                 <TouchableOpacity activeOpacity={0.8} onPress={addCourse}>
-                    <View className="mx-auto mb-2 w-5/12 rounded-lg bg-sky-100 py-3">
+                    <View className="mx-auto mb-2 w-4/12 rounded-lg bg-sky-100 py-3">
                         <Text className="text-center text-lg font-semibold text-gray-500">
                             {/* <Ionicons name='add-circle-outline' size={16}></Ionicons> */}
                             關注課程
@@ -161,9 +162,11 @@ function FollowCourse() {
                         }}
                         renderItem={({ item }) => (
                             <View className="mx-auto my-2 w-11/12 items-center rounded-xl bg-white p-1">
-                                <Text className="m-3 flex w-85% items-center justify-center rounded-lg bg-slate-100 p-4 text-center text-lg font-extrabold text-gray-600">
-                                    {item.courseNumber}
-                                </Text>
+                                <View className="m-3 flex w-85% items-center justify-center rounded-lg bg-slate-100 p-4">
+                                    <Text className="text-center text-lg font-extrabold text-gray-600">
+                                        {item.courseNumber}
+                                    </Text>
+                                </View>
                                 <View className="flex justify-center">
                                     <Text className="text-lg font-bold text-gray-600">
                                         {item.courseName}
@@ -194,15 +197,17 @@ function FollowCourse() {
                                     }
                                     className="flex justify-center"
                                 >
-                                    <Text
-                                        className="m-3 rounded-lg p-4 text-base font-bold text-gray-600"
+                                    <View
+                                        className="m-3 rounded-lg p-4"
                                         style={{
                                             backgroundColor:
                                                 'rgb(254, 202, 202)',
                                         }}
                                     >
-                                        取消關注
-                                    </Text>
+                                        <Text className="text-base font-bold text-gray-600">
+                                            取消關注
+                                        </Text>
+                                    </View>
                                 </TouchableOpacity>
                             </View>
                         )}
@@ -218,9 +223,11 @@ function FollowCourse() {
                     >
                         <View className="flex h-full items-center justify-around">
                             <View className="flex items-center">
-                                <Text className="my-2 rounded-xl bg-white px-6 pb-4 pt-5 text-3xl font-black text-gray-600">
-                                    尚未關注課程
-                                </Text>
+                                <View className="my-2 rounded-xl bg-white px-6 pb-4 pt-5">
+                                    <Text className="text-3xl font-black text-gray-600">
+                                        尚未關注課程
+                                    </Text>
+                                </View>
                                 <Ionicons
                                     name="happy-outline"
                                     size={80}
