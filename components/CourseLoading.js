@@ -15,9 +15,11 @@ const LoadingIcon = () => {
             </View> */}
             <View className="flex h-full items-center justify-around">
                 <View className="flex items-center">
-                    <Text className="my-2 rounded-xl bg-white px-6 pb-4 pt-5 text-3xl font-semibold text-gray-600">
-                        課程載入中
-                    </Text>
+                    <View className="my-2 rounded-xl bg-white px-6 pb-4 pt-5">
+                        <Text className="text-3xl font-semibold text-gray-600">
+                            課程載入中
+                        </Text>
+                    </View>
                     <Ionicons
                         name="happy-outline"
                         size={80}
