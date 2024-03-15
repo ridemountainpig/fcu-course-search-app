@@ -12,7 +12,7 @@
     "dependencies": {
         "@react-native-async-storage/async-storage": "1.18.2",
         "@react-native-community/masked-view": "^0.1.11",
-        "expo": "~49.0.13",
+        "expo": "~50.0.13",
         "expo-dev-client": "~2.4.13",
         "expo-status-bar": "~1.6.0",
         "expo-updates": "~0.18.19",
