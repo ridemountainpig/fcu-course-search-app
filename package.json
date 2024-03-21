@@ -30,7 +30,7 @@
         "expo-splash-screen": "~0.20.5"
     },
     "devDependencies": {
-        "@babel/core": "^7.21.4",
+        "@babel/core": "^7.24.3",
         "prettier": "^3.2.5",
         "prettier-plugin-tailwindcss": "^0.5.11",
         "tailwindcss": "^3.3.2"
